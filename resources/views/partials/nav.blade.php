@@ -27,7 +27,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
                                 <a class="dropdown-item"
-                                   href="{{ route('ubicaciones.index') }}"><i class="fa fa-calculator"></i> {{ __('Facturas') }}</a>
+                                   href="{{ route('facturas.index') }}"><i class="fa fa-calculator"></i> {{ __('Facturas') }}</a>
                                 <a class="dropdown-item"
                                    href="{{ route('vehiculos.index') }}"><i class="fa fa-car"></i> {{ __('Vehículos') }}</a>
                                 <a class="dropdown-item"
