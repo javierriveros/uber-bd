@@ -14,7 +14,9 @@ class FacturasController extends Controller
      */
     public function index()
     {
-        //
+        $facturas = Factura::with(['user', 'vehiculo', 'metodo_pago', 'tarifa'])->get();
+
+        return view('facturas.index', compact('facturas'));
     }
 
     /**

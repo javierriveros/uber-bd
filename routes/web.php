@@ -92,6 +92,17 @@ Route::group([
     });
 });
 
+Route::group([
+    'prefix' => 'facturas',
+    'as' => 'facturas.',
+    'middleware' => ['auth', 'comprobarAdmin']
+], function () {
+    Route::get('/', 'FacturasController@index')->name('index');
+    Route::get('/{id}/edit', 'FacturasController@edit')->name('edit');
+    Route::put('/{id}', 'FacturasController@update')->name('update');
+    Route::patch('/{id}', 'FacturasController@update')->name('update');
+    Route::delete('/{id}', 'FacturasController@destroy')->name('destroy');
+});
 
 // Route::resources([
 //     'facturas' => 'FacturasController',
