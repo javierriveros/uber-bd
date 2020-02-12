@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class UsuariosController extends Controller
 {
     public function index()
     {
