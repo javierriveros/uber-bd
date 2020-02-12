@@ -12,11 +12,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>Nombre completo</th>
                             <th>Celular</th>
                             <th>Email</th>
-                            <th>Rol</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -24,11 +22,9 @@
                     @foreach($usuarios as $usuario)
                         <tr>
                             <td>{{ $usuario->id }}</td>
-                            <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->apellido }}</td>
+                            <td>{{ $usuario->name }} {{ $usuario->apellido }} <span class="badge badge-success text-white font-weight-normal">{{ $usuario->rol() }}</span></td>
                             <td>{{ $usuario->celular }}</td>
                             <td>{{ $usuario->email }}</td>
-                            <td>{{ $usuario->rol() }}</td>
                             <td>
                                 <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-sm btn-primary" title="Editar"><i class="fa fa-pencil-alt"></i> <span class="d-none d-lg-inline-block">Editar</span></a>
 

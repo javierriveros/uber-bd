@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'comprobarAdmin' => \App\Http\Middleware\ComprobarAdmin::class,
         'comprobarConductor' => \App\Http\Middleware\ComprobarConductor::class,
-        'comprobarPasajero' => \App\Http\Middleware\ComprobarPasajero::class,
+        'comprobarConductorAdmin' => \App\Http\Middleware\ComprobarConductorAdmin::class,
     ];
 
     /**

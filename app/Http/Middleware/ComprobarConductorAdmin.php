@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ComprobarPasajero
+class ComprobarConductorAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class ComprobarPasajero
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->user()->esPasajero()) {
+        if (auth()->user()->tipo < 2) {
             flash('No tiene permisos para acceder')->error();
             return redirect()->route('home');
         }

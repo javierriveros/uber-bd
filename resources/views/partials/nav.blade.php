@@ -29,7 +29,7 @@
                                 <a class="dropdown-item"
                                    href="{{ route('ubicaciones.index') }}"><i class="fa fa-calculator"></i> {{ __('Facturas') }}</a>
                                 <a class="dropdown-item"
-                                   href="{{ route('ubicaciones.index') }}"><i class="fa fa-car"></i> {{ __('Vehículos') }}</a>
+                                   href="{{ route('vehiculos.index') }}"><i class="fa fa-car"></i> {{ __('Vehículos') }}</a>
                                 <a class="dropdown-item"
                                    href="{{ route('usuarios.index') }}"><i class="fa fa-users"></i> {{ __('Usuarios') }}</a>
                                 <a class="dropdown-item"
@@ -41,6 +41,12 @@
                             </div>
                         </li>
                     @endif
+                    @if(Auth::user()->esConductor())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vehiculos.create') }}">{{ __('Agregar mi vehículo') }}</a>
+                        </li>
+                    @endif
+
                 @endauth
                 <!-- Authentication Links -->
                 @guest
@@ -51,7 +57,7 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name . " " . Auth::user()->apellido }} <span class="badge badge-info text-white text-light">{{Auth::user()->rol()}}</span> <span class="caret"></span>
+                            {{ Auth::user()->name . " " . Auth::user()->apellido }} <span class="badge badge-info text-white font-weight-normal">{{Auth::user()->rol()}}</span> <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

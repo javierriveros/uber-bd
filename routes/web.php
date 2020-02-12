@@ -74,6 +74,24 @@ Route::group([
     Route::delete('/{id}', 'UsuariosController@destroy')->name('destroy');
 });
 
+Route::group([
+    'prefix' => 'vehiculos',
+    'as' => 'vehiculos.',
+    'middleware' => ['auth']
+], function () {
+    Route::group(['middleware' => 'comprobarAdmin'], function () {
+     Route::get('/', 'VehiculosController@index')->name('index');
+    });
+    Route::group(['middleware' => 'comprobarConductorAdmin'], function () {
+        Route::get('/create', 'VehiculosController@create')->name('create');
+        Route::post('/', 'VehiculosController@store')->name('store');
+        Route::get('/{id}/edit', 'VehiculosController@edit')->name('edit');
+        Route::put('/{id}', 'VehiculosController@update')->name('update');
+        Route::patch('/{id}', 'VehiculosController@update')->name('update');
+        Route::delete('/{id}', 'VehiculosController@destroy')->name('destroy');
+    });
+});
+
 
 // Route::resources([
 //     'facturas' => 'FacturasController',

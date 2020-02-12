@@ -11,13 +11,18 @@
     @endif
 
     <div class="form-group {!! $errors->first('name', 'has-error') !!}">
-        {{ Form::label('nombre_barr', 'Nombre del barrio') }}
-        {{ Form::text('nombre_barr', $ubicacion->nombre_barr, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ Form::label('placa', 'Placa') }}
+        {{ Form::text('placa', $vehiculo->placa, ['class' => 'form-control', 'required' => 'required']) }}
     </div>
 
     <div class="form-group {!! $errors->first('name', 'has-error') !!}">
-        {{ Form::label('direccion', 'Dirección') }}
-        {{ Form::text('direccion', $ubicacion->direccion, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ Form::label('modelo', 'Modelo') }}
+        {{ Form::text('modelo', $vehiculo->modelo, ['class' => 'form-control', 'required' => 'required']) }}
+    </div>
+
+    <div class="form-group {!! $errors->first('name', 'has-error') !!}">
+        {{ Form::label('color', 'Color') }}
+        {{ Form::text('color', $vehiculo->color, ['class' => 'form-control', 'required' => 'required']) }}
     </div>
 
     <div class="form-group text-right">

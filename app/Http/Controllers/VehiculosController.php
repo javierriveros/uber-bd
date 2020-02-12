@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ubicacion;
 use App\Vehiculo;
 use Illuminate\Http\Request;
 
@@ -14,72 +15,117 @@ class VehiculosController extends Controller
      */
     public function index()
     {
-        //
+        $vehiculos = Vehiculo::with('conductor')->get();
+
+        return view('vehiculos.index', compact('vehiculos'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $vehiculo = new Vehiculo;
+        return view('vehiculos.create', compact('vehiculo'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $vehiculo = new Vehiculo($request->all());
+        // $resultado = Vehiculo::insertar(['placa' => $request->get('placa'), 'modelo' => $request->get('modelo'), 'color' => $request->get('color'), 'conductor_id' => $request->get('conductor_id')]);
+        // if ($resultado)
+        if ($vehiculo->save()) {
+            flash('Se ha guardado el vehículo')->success();
+            return redirect()->route('vehiculos.index');
+        } else {
+            return view('vehiculos.create', compact('vehiculo'));
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Muestra el recurso.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehiculo $vehiculo)
+    public function show($id)
     {
-        //
+        $vehiculo = Vehiculo::buscar($id);
+        if ($vehiculo == null) {
+            flash('El recurso solicitado no existe')->success();
+            return redirect()->route('vehiculos.index', 302);
+        }
+        if (!($vehiculo->conductor_id == \Auth::user()->id || \Auth::user()->esAdministrador())) {
+            flash('No tienes permisos para realizar esa acción')->error();
+            return redirect()->route('home');
+        }
+        return view('vehiculos.show', compact('vehiculo'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un recurso.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehiculo $vehiculo)
+    public function edit($id)
     {
-        //
+        $vehiculo = Vehiculo::buscar($id);
+        if ($vehiculo == null) {
+            flash('El recurso solicitado no existe')->success();
+            return redirect()->route('vehiculos.index', 302);
+        }
+        if (!($vehiculo->conductor_id == \Auth::user()->id || \Auth::user()->esAdministrador())) {
+            flash('No tienes permisos para realizar esa acción')->error();
+            return redirect()->route('home');
+        }
+        return view('vehiculos.edit', compact('vehiculo'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehiculo $vehiculo)
+    public function update(Request $request, $id)
     {
-        //
+        $vehiculo = Vehiculo::buscar($id);
+
+        if ($vehiculo == null) {
+            flash('El recurso solicitado no existe')->success();
+            return redirect()->route('ubicaciones.index', 302);
+        }
+
+        $resultado = Vehiculo::actualizar(['placa' => $request->get('placa'), 'modelo' => $request->get('modelo'), 'color' => $request->get('color'), 'id' => $id]);
+
+        if ($resultado) {
+            flash('Se ha actualizado el recurso')->success();
+            return redirect()->route('vehiculos.index');
+        } else {
+            return view('vehiculos.edit', compact('vehiculo'));
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso de la BD.
      *
-     * @param  \App\Vehiculo  $vehiculo
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehiculo $vehiculo)
+    public function destroy($id)
     {
-        //
+        Vehiculo::eliminar($id);
+        flash('Se ha eliminado el recurso')->success();
+        return redirect()->route('vehiculos.index');
     }
 }
