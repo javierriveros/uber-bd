@@ -40,7 +40,8 @@ class UbicacionesController extends Controller
     public function store(Request $request)
     {
         $ubicacion = new Ubicacion($request->all());
-        // $result = DB::insert("INSERT INTO ubicaciones(nombre_barr, direccion) values (?, ?)", [$ubicacion->nombre_barr, $ubicacion->direccion]);
+        // $result = Ubicacion::insertar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion')]);
+        // if ($result)
         if ($ubicacion->save()) {
             flash('Se ha guardado la ubicacion')->success();
             return redirect()->route('ubicaciones.index');
@@ -57,7 +58,7 @@ class UbicacionesController extends Controller
      */
     public function edit($id)
     {
-        $ubicacion = DB::selectOne("SELECT * FROM ubicaciones WHERE id=?", [$id]);
+        $ubicacion = Ubicacion::buscar($id);
         if ($ubicacion == null) {
             flash('El recurso solicitado no existe')->success();
             return redirect()->route('ubicaciones.index', 302);
@@ -74,14 +75,14 @@ class UbicacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ubicacion = DB::selectOne("SELECT * FROM ubicaciones WHERE id=?", [$id]);
+        $ubicacion = Ubicacion::buscar($id);
 
         if ($ubicacion == null) {
             flash('El recurso solicitado no existe')->success();
             return redirect()->route('ubicaciones.index', 302);
         }
 
-        $result = DB::update("UPDATE ubicaciones SET nombre_barr=?, direccion=? WHERE id=?", [$request->get('nombre_barr'), $request->get('direccion'), $id]);
+        $result = Ubicacion::actualizar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion'), 'id' => $id]);
 
         if ($result) {
             flash('Se ha actualizado el recurso')->success();
@@ -99,7 +100,7 @@ class UbicacionesController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete("DELETE FROM ubicaciones WHERE id=?", [$id]);
+        Ubicacion::eliminar($id);
         flash('Se ha eliminado el recurso')->success();
         return redirect()->route('ubicaciones.index');
     }

@@ -9,7 +9,7 @@
                 <table class="table table-hover">
                     <caption>Lista de métodos de pago</caption>
                     <a href="{{ route('metodos_pago.create') }}" class="btn btn-sm btn-success my-4"
-                       title="Añadir ubicación">
+                       title="Añadir">
                         <i class="fas fa-plus"></i> Añadir método de pago
                     </a>
 
@@ -18,7 +18,7 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Descuento</th>
-                        <th colspan="2">Acciones</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,8 +32,7 @@
                                    class="btn btn-sm btn-primary"
                                    title="Editar"><i class="fa fa-pencil-alt"></i> <span
                                         class="d-none d-lg-inline-block"> Editar</span></a>
-                            </td>
-                            <td>
+
                                 @include('metodos_pago.delete', ['id' => $metodo_pago->id])
                             </td>
                         </tr>

@@ -18,7 +18,7 @@
                         <th>Dirección Origen</th>
                         <th>Dirección Destino</th>
                         <th>Valor</th>
-                        <th colspan="2">Acciones</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,8 +31,6 @@
                             <td>
                                 <a href="{{ route('tarifas.edit', $tarifa->id) }}" class="btn btn-sm btn-primary"
                                     title="Editar"><i class="fa fa-pencil-alt"></i> <span class="d-none d-lg-inline-block">Editar</span></a>
-                            </td>
-                            <td>
                                 @include('tarifas.delete', ['id' => $tarifa->id])
                             </td>
                         </tr>
