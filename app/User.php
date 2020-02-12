@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -60,5 +61,25 @@ class User extends Authenticatable
         } else {
             return 'Desconocido';
         }
+    }
+
+    public static function todos()
+    {
+        return DB::select("SELECT * FROM users ORDER BY id DESC");
+    }
+
+    public static function buscar($id)
+    {
+        return DB::selectOne("SELECT * FROM users WHERE id=?", [$id]);
+    }
+
+    public static function actualizar($usuario)
+    {
+        return DB::update("UPDATE users SET name=?, tipo=?, apellido=?, celular=? WHERE id=?", [$usuario['name'], $usuario['tipo'], $usuario['apellido'], $usuario['celular'], $usuario['id']]);
+    }
+
+    public static function eliminar($id)
+    {
+        return DB::delete("DELETE FROM users WHERE id=?", [$id]);
     }
 }

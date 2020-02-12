@@ -24,14 +24,14 @@ class Ubicacion extends Model
         return DB::selectOne("SELECT * FROM ubicaciones WHERE id=?", [$id]);
     }
 
-    public static function guardar($ubicacion)
+    public static function insertar($ubicacion)
     {
         return DB::insert("INSERT INTO ubicaciones(nombre_barr, direccion) values (?, ?)", [$ubicacion['nombre_barr'], $ubicacion['direccion']]);
     }
 
-    public static function actualizar($datos)
+    public static function actualizar($ubicacion)
     {
-        return DB::update("UPDATE ubicaciones SET nombre_barr=?, direccion=? WHERE id=?", [$datos['nombre_barr'], $datos['direccion'], $datos['id']]);
+        return DB::update("UPDATE ubicaciones SET nombre_barr=?, direccion=? WHERE id=?", [$ubicacion['nombre_barr'], $ubicacion['direccion'], $ubicacion['id']]);
     }
 
     public static function eliminar($id)

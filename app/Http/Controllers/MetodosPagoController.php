@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\DB;
 class MetodosPagoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de recursos
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $metodos_pago = DB::select("SELECT * FROM metodos_pago ORDER BY id DESC");
+        $metodos_pago = MetodoPago::todos();
 
         return view('metodos_pago.index', ['metodos_pago' => $metodos_pago]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +33,7 @@ class MetodosPagoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,7 +41,7 @@ class MetodosPagoController extends Controller
     public function store(Request $request)
     {
         $metodo_pago = new MetodoPago($request->all());
-        // $result = DB::insert("INSERT INTO metodos_pago(nombre_met, descuento) values (?, ?)", [$metodo_pago->nombre_met, $metodo_pago->descuento]);
+        // $resultado = MetodoPago::insertar(['nombre_met' => $request->get('nombre_met'), 'descuento' => $request->get('descuento')]);
         if ($metodo_pago->save()) {
             flash('Se ha guardado el método de pago')->success();
             return redirect()->route('metodos_pago.index', $metodo_pago->id);
@@ -51,14 +51,14 @@ class MetodosPagoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un recurso.
      *
      * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $metodo_pago = DB::selectOne("SELECT * FROM metodos_pago WHERE id=?", [$id]);
+        $metodo_pago = MetodoPago::buscar($id);
         if ($metodo_pago == null) {
             flash('El recurso solicitado no existe')->success();
             return redirect()->route('metodos_pago.index', 302);
@@ -67,7 +67,7 @@ class MetodosPagoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int $id
@@ -75,16 +75,16 @@ class MetodosPagoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $metodo_pago = DB::selectOne("SELECT * FROM metodos_pago WHERE id=?", [$id]);
+        $metodo_pago = MetodoPago::buscar($id);
 
         if ($metodo_pago == null) {
             flash('El recurso solicitado no existe')->success();
             return redirect()->route('metodos_pago.index', 302);
         }
 
-        $result = DB::update("UPDATE metodos_pago SET nombre_met=?, descuento=? WHERE id=?", [$request->get('nombre_met'), $request->get('descuento'), $id]);
+        $resultado = MetodoPago::actualizar(['nombre_met' => $request->get('nombre_met'), 'descuento' => $request->get('descuento'), 'id' => $id]);
 
-        if ($result) {
+        if ($resultado) {
             flash('Se ha actualizado el recurso')->success();
             return redirect()->route('metodos_pago.index');
         } else {
@@ -93,14 +93,14 @@ class MetodosPagoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso de la BD.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        DB::delete("DELETE FROM metodos_pago WHERE id=?", [$id]);
+        MetodoPago::eliminar($id);
         flash('Se ha eliminado el recurso')->success();
         return redirect()->route('metodos_pago.index');
     }

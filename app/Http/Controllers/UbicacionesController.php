@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class UbicacionesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de recursos
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +32,7 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -40,8 +40,8 @@ class UbicacionesController extends Controller
     public function store(Request $request)
     {
         $ubicacion = new Ubicacion($request->all());
-        // $result = Ubicacion::insertar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion')]);
-        // if ($result)
+        // $resultado = Ubicacion::insertar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion')]);
+        // if ($resultado)
         if ($ubicacion->save()) {
             flash('Se ha guardado la ubicacion')->success();
             return redirect()->route('ubicaciones.index');
@@ -51,7 +51,7 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un recurso.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -67,7 +67,7 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  $id
@@ -82,9 +82,9 @@ class UbicacionesController extends Controller
             return redirect()->route('ubicaciones.index', 302);
         }
 
-        $result = Ubicacion::actualizar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion'), 'id' => $id]);
+        $resultado = Ubicacion::actualizar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion'), 'id' => $id]);
 
-        if ($result) {
+        if ($resultado) {
             flash('Se ha actualizado el recurso')->success();
             return redirect()->route('ubicaciones.index');
         } else {
@@ -93,7 +93,7 @@ class UbicacionesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso de la BD.
      *
      * @param  $id
      * @return \Illuminate\Http\Response

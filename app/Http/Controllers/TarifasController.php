@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class TarifasController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de recursos
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class TarifasController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo recurso.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,7 +34,7 @@ class TarifasController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -42,7 +42,7 @@ class TarifasController extends Controller
     public function store(Request $request)
     {
         $tarifa = new Tarifa($request->all());
-        // $result = DB::insert("INSERT INTO tarifas(valor, origen_id, destino_id) values (?, ?, ?)", [$tarifa->valor, $tarifa->origen_id, $tarifa->destino_id]);
+        // $resultado = Tarifa::insertar(['valor' => $request->get('valor'), 'origen_id' => $request->get('origen_id'), 'destino_id' => $request->get('destino_id')])
         if ($tarifa->save()) {
             flash('Se ha guardado la tarifa')->success();
             return redirect()->route('tarifas.index');
@@ -52,14 +52,14 @@ class TarifasController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un recurso.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $tarifa = DB::selectOne("SELECT * FROM tarifas WHERE id=?", [$id]);
+        $tarifa = Tarifa::buscar($id);
 
         if ($tarifa == null) {
             flash('El recurso solicitado no existe')->success();
@@ -71,7 +71,7 @@ class TarifasController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza el recurso en la BD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int $id
@@ -79,16 +79,15 @@ class TarifasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tarifa = DB::selectOne("SELECT * FROM tarifas WHERE id=?", [$id]);
+        $tarifa = Tarifa::buscar($id);
 
         if ($tarifa == null) {
             flash('El recurso solicitado no existe')->success();
             return redirect()->route('tarifas.index', 302);
         }
 
-        $result = DB::update("UPDATE tarifas SET valor=?, origen_id=?, destino_id=? WHERE id=?", [$request->get('valor'), $request->get('origen_id'), $request->get('destino_id'), $id]);
-
-        if ($result) {
+        $resultado = Tarifa::actualizar(['valor' => $request->get('valor'), 'origen_id' => $request->get('origen_id'), 'destino_id' => $request->get('destino_id'), 'id' => $id]);
+        if ($resultado) {
             flash('Se ha actualizado el recurso')->success();
             return redirect()->route('tarifas.index');
         } else {
@@ -97,14 +96,14 @@ class TarifasController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina el recurso de la BD.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        DB::delete("DELETE FROM tarifas WHERE id=?", [$id]);
+        Tarifa::eliminar($id);
         flash('Se ha eliminado el recurso')->success();
         return redirect()->route('tarifas.index');
     }

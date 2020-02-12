@@ -63,11 +63,11 @@ Route::group([
     'as' => 'usuarios.',
     'middleware' => ['auth', 'comprobarAdmin']
 ], function () {
-    Route::get('/', 'UsersController@index')->name('index');
-    Route::get('/{id}/edit', 'UsersController@edit')->name('edit');
-    Route::put('/{id}', 'UsersController@update')->name('update');
-    Route::patch('/{id}', 'UsersController@update')->name('update');
-    Route::delete('/{id}', 'UsersController@destroy')->name('destroy');
+    Route::get('/', 'UsuariosController@index')->name('index');
+    Route::get('/{id}/edit', 'UsuariosController@edit')->name('edit');
+    Route::put('/{id}', 'UsuariosController@update')->name('update');
+    Route::patch('/{id}', 'UsuariosController@update')->name('update');
+    Route::delete('/{id}', 'UsuariosController@destroy')->name('destroy');
 });
 
 

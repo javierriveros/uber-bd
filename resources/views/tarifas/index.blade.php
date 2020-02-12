@@ -25,8 +25,8 @@
                     @foreach($tarifas as $tarifa)
                         <tr>
                             <th scope="row">{{ $tarifa->id }}</th>
-                            <td>Barrio: {{ $tarifa->origen()->nombre_barr }}<br> Dirección: {{ $tarifa->origen->direccion }}</td>
-                            <td>Barrio: {{ $tarifa->destino()->nombre_barr }}<br> Dirección: {{ $tarifa->destino->direccion }}</td>
+                            <td>Barrio: {{ $tarifa->origen->nombre_barr }}<br> Dirección: {{ $tarifa->origen->direccion }}</td>
+                            <td>Barrio: {{ $tarifa->destino->nombre_barr }}<br> Dirección: {{ $tarifa->destino->direccion }}</td>
                             <td>{{ $tarifa->valor }}</td>
                             <td>
                                 <a href="{{ route('tarifas.edit', $tarifa->id) }}" class="btn btn-sm btn-primary"

@@ -8,15 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class UsuariosController extends Controller
 {
+    /**
+     * Muestra la lista de recursos
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $usuarios = User::orderBy('id')->get();
+        $usuarios = User::all();
 
         return view('usuarios.index', compact('usuarios'));
     }
 
-    // Edita usuarios diferentes al logueado
-    // Disponible sólo para el administrador
+    /**
+     * Muestra el formulario para editar un usuario.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $usuario = User::findOrFail($id);
@@ -24,6 +33,13 @@ class UsuariosController extends Controller
         return view('usuarios.edit', compact('usuario'));
     }
 
+    /**
+     * Actualiza el usuario en la BD.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $user = new \stdClass;
@@ -36,15 +52,25 @@ class UsuariosController extends Controller
             $user->tipo = $request->get('tipo');
         }
 
-        DB::update("UPDATE users SET name=?, apellido=?, celular=?, tipo=? WHERE id=?", [$user->name, $user->apellido, $user->celular, $user->tipo ?? 1, $id]);
+        $resultado = User::actualizar(['name' => $user->name, 'apellido' => $user->apellido, 'celular' => $user->celular, 'tipo' => $user->tipo ?? 1, 'id' => $id]);
 
-        flash('Usuario actualizado')->success();
+        if ($resultado) {
+            flash('Usuario actualizado')->success();
+        } else {
+            flash('No se pudo actualizar el usuario')->error();
+        }
         return redirect()->route('usuarios.index');
     }
 
+    /**
+     * Elimina el usuario de la BD.
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy( $id)
     {
-        DB::delete("DELETE FROM users WHERE id=?", [$id]);
+        User::eliminar($id);
         flash('Se ha eliminado el usuario')->success();
         return redirect()->route('usuarios.index');
     }
