@@ -10901,7 +10901,16 @@ a.text-dark:focus {
  */
 
 .main {
-  background: url("https://images.pexels.com/photos/593172/pexels-photo-593172.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center/cover;
+  background-position: center;
+  background-size: cover;
+}
+
+.card-body-icon {
+  position: absolute;
+  z-index: 0;
+  top: -5px;
+  right: 10px;
+  font-size: 3rem;
 }
 
 /*

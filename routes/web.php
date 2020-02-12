@@ -16,6 +16,10 @@ Route::get('/conductor', 'HomeController@conductor')
     ->middleware(['auth', 'comprobarConductor'])
     ->name('conductor');
 
+Route::get('/administrador', 'HomeController@administrador')
+    ->middleware(['auth', 'comprobarAdmin'])
+    ->name('administrador');
+
 Route::group([
     'prefix' => 'ubicaciones',
     'as' => 'ubicaciones.',

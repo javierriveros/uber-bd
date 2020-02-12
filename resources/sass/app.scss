@@ -28,6 +28,14 @@
     background-size: cover;
 }
 
+.card-body-icon {
+    position: absolute;
+    z-index: 0;
+    top: -5px;
+    right: 10px;
+    font-size: 3rem;
+}
+
 /*
  * Extra utilities
  */

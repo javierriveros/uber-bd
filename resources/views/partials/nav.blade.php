@@ -33,7 +33,7 @@
                                 <a class="dropdown-item"
                                    href="{{ route('usuarios.index') }}"><i class="fa fa-users"></i> {{ __('Usuarios') }}</a>
                                 <a class="dropdown-item"
-                                   href="{{ route('tarifas.index') }}"><i class="fa fa-credit-card"></i> {{ __('Tarifas') }}</a>
+                                   href="{{ route('tarifas.index') }}"><i class="fa fa-money-bill-wave"></i> {{ __('Tarifas') }}</a>
                                 <a class="dropdown-item"
                                    href="{{ route('metodos_pago.index') }}"><i class="fa fa-credit-card"></i> {{ __('Métodos de pago') }}</a>
                                 <a class="dropdown-item"

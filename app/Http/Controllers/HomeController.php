@@ -27,6 +27,8 @@ class HomeController extends Controller
         if (\Auth::check()) {
             if (Auth::user()->esConductor()) {
                 return redirect()->route('conductor');
+            } else if (Auth::user()->esAdministrador()) {
+                return redirect()->route('administrador');
             }
             return view('home');
         }
@@ -41,5 +43,15 @@ class HomeController extends Controller
     public function conductor()
     {
         return view('home.conductor');
+    }
+
+    /**
+     * Muestra la vista de administrador.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administrador()
+    {
+        return view('home.admin');
     }
 }
