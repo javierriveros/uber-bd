@@ -59,26 +59,6 @@ class VehiculosController extends Controller
     }
 
     /**
-     * Muestra el recurso.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $vehiculo = Vehiculo::buscar($id);
-        if ($vehiculo == null) {
-            flash('El recurso solicitado no existe')->success();
-            return redirect()->route('vehiculos.index', 302);
-        }
-        if (!($vehiculo->conductor_id == \Auth::user()->id || \Auth::user()->esAdministrador())) {
-            flash('No tienes permisos para realizar esa acción')->error();
-            return redirect()->route('home');
-        }
-        return view('vehiculos.show', compact('vehiculo'));
-    }
-
-    /**
      * Muestra el formulario para editar un recurso.
      *
      * @param  int $id

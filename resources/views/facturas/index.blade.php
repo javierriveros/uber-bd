@@ -3,7 +3,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
                 <table class="table table-hover table-responsive-sm">
@@ -41,9 +41,9 @@
                             <td class="d-print-none">
                                 <a href="{{route('facturas.show', $factura)}}" class="btn btn-sm btn-info"><i
                                         class="fa fa-eye"></i> <span class="d-none d-lg-inline-block">Ver</span></a>
-                                <a href="{{ route('facturas.edit', $factura->id) }}" class="btn btn-sm btn-primary"
-                                   title="Editar"><i class="fa fa-pencil-alt"></i> <span
-                                        class="d-none d-lg-inline-block">Editar</span></a>
+{{--                                <a href="{{ route('facturas.edit', $factura->id) }}" class="btn btn-sm btn-primary"--}}
+{{--                                   title="Editar"><i class="fa fa-pencil-alt"></i> <span--}}
+{{--                                        class="d-none d-lg-inline-block">Editar</span></a>--}}
                                 @include('facturas.delete', ['id' => $factura->id])
                             </td>
                         </tr>
