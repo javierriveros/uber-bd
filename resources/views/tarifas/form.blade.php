@@ -23,7 +23,7 @@
 
     <div class="form-group @error('origen_id') is-invalid @enderror">
         {{ Form::label('origen_id', 'Origen') }}
-        {{ Form::select('origen_id', $ubicaciones, null, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ Form::select('origen_id', $ubicaciones, $tarifa->origen_id, ['class' => 'form-control', 'required' => 'required']) }}
 
         @error('origen_id')
             <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
 
     <div class="form-group @error('destino_id') is-invalid @enderror">
         {{ Form::label('destino_id', 'Destino') }}
-        {{ Form::select('destino_id', $ubicaciones, null, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ Form::select('destino_id', $ubicaciones, $tarifa->destino_id, ['class' => 'form-control', 'required' => 'required']) }}
 
         @error('destino_id')
             <span class="invalid-feedback" role="alert">

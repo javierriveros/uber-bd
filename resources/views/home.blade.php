@@ -9,10 +9,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Página principal</div>
-
-                <div class="card-body">
-
+                <div class="card-header">Bienvenido {{Auth::user()->name}}</div>
+                <div class="card-body text-center">
+                    <a href="{{route('facturas.create', ['pasajero' => 1])}}" class="btn btn-block btn-primary">Solicita tu viaje</a>
                 </div>
             </div>
         </div>

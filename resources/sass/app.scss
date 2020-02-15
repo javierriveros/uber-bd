@@ -1,6 +1,10 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
 
+$font-family-sans-serif: 'Rubik', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
@@ -9,6 +13,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
 
 .navbar.navbar-dark.bg-dark {
     background-color: #000 !important;

@@ -12,7 +12,9 @@
                     <div class="card-header">Mostrar las facturas del conductor</div>
 
                     <div class="card-body">
-
+                        @if ($vehiculo != null)
+                            <h5>Tu vehículo: {{$vehiculo->placa}} <br><small>Color: {{$vehiculo->color}}</small><br> <small>Modelo: {{$vehiculo->modelo}}</small></h5>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'comprobarAdmin' => \App\Http\Middleware\ComprobarAdmin::class,
         'comprobarConductor' => \App\Http\Middleware\ComprobarConductor::class,
         'comprobarConductorAdmin' => \App\Http\Middleware\ComprobarConductorAdmin::class,
+        'comprobarPasajeroAdmin' => \App\Http\Middleware\ComprobarPasajeroAdmin::class,
     ];
 
     /**

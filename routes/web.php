@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/inicio', 'HomeController@index')->name('home');
 Route::get('/conductor', 'HomeController@conductor')
     ->middleware(['auth', 'comprobarConductor'])
     ->name('conductor');
@@ -80,7 +81,7 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::group(['middleware' => 'comprobarAdmin'], function () {
-     Route::get('/', 'VehiculosController@index')->name('index');
+        Route::get('/', 'VehiculosController@index')->name('index');
     });
     Route::group(['middleware' => 'comprobarConductorAdmin'], function () {
         Route::get('/create', 'VehiculosController@create')->name('create');
@@ -95,23 +96,24 @@ Route::group([
 Route::group([
     'prefix' => 'facturas',
     'as' => 'facturas.',
-    'middleware' => ['auth', 'comprobarAdmin']
+    'middleware' => ['auth']
 ], function () {
-    Route::get('/', 'FacturasController@index')->name('index');
-    Route::get('/{id}/edit', 'FacturasController@edit')->name('edit');
-    Route::put('/{id}', 'FacturasController@update')->name('update');
-    Route::patch('/{id}', 'FacturasController@update')->name('update');
-    Route::delete('/{id}', 'FacturasController@destroy')->name('destroy');
+    Route::group(['middleware' => 'comprobarAdmin'], function () {
+        Route::get('/', 'FacturasController@index')->name('index');
+        // Evita que se editen las facturas
+        // Route::get('/{id}/edit', 'FacturasController@edit')->name('edit');
+        // Route::put('/{id}', 'FacturasController@update')->name('update');
+        // Route::patch('/{id}', 'FacturasController@update')->name('update');
+        Route::delete('/{id}', 'FacturasController@destroy')->name('destroy');
+    });
+
+    // Permite a un pasajero solicitar un viaje
+    Route::group(['middleware' => 'comprobarPasajeroAdmin'], function () {
+        Route::get('/create', 'FacturasController@create')->name('create');
+        Route::get('/{factura}', 'FacturasController@show')->name('show');
+        Route::post('/', 'FacturasController@store')->name('store');
+    });
 });
 
-// Route::resources([
-//     'facturas' => 'FacturasController',
-//     'vehiculos' => 'VehiculosController',
-//     'metodos-pago' => 'MetodosPagoController',
-//     'ubicaciones' => 'UbicacionesController',
-//     'tarifas' => 'TarifasController',
-// ]);
 
 Auth::routes();
-
-Route::get('/inicio', 'HomeController@index')->name('home');

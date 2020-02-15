@@ -100,7 +100,7 @@
                         </div>
                         <span>Facturas</span>
                     </div>
-                    <a class="card-footer text-white small" href="{{ route('tarifas.index') }}">
+                    <a class="card-footer text-white small" href="{{ route('facturas.index') }}">
                         <span class="float-left">Administrar</span>
                         <span class="float-right">
                         <i class="fa fa-angle-right"></i>

@@ -10,10 +10,6 @@ class Tarifa extends Model
     protected $table = 'tarifas';
     protected $fillable = ['valor', 'origen_id', 'destino_id'];
 
-    public static function todas() {
-        return DB::select('SELECT * FROM tarifas ORDER BY id DESC');
-    }
-
     /**
      * Obtener el origen
      */
@@ -32,7 +28,7 @@ class Tarifa extends Model
         return $this->belongsTo('App\Ubicacion', 'destino_id');
     }
 
-    public static function todos()
+    public static function todas()
     {
         return DB::select("SELECT * FROM tarifas ORDER BY id DESC");
     }

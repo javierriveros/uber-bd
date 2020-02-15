@@ -3,20 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Factura extends Model
 {
     protected $table = 'facturas';
     protected $fillable = [
-        'total', 'iva', 'user_id', 'vehiculo_id', 'metodo_pago_id', 'tarifa_id'
+        'total', 'pasajero_id', 'vehiculo_id', 'metodo_pago_id', 'tarifa_id'
     ];
 
     /**
      * Obtener el pasajero
      */
-    public function user()
+    public function pasajero()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'pasajero_id');
     }
 
     /**
@@ -55,16 +56,21 @@ class Factura extends Model
 
     public static function insertar($factura)
     {
-        return DB::insert("INSERT INTO facturas(total, iva, user_id, vehiculo_id, metodo_pago_id, tarifa_id) values (?, ?)", [$factura['total'], $factura['iva'], $factura['user_id'],$factura['vehiculo_id'], $factura['metodo_pago_id'], $factura['tarifa_id']]);
+        return DB::insert("INSERT INTO facturas(total, pasajero_id, vehiculo_id, metodo_pago_id, tarifa_id) values (?, ?)", [$factura['total'], $factura['pasajero_id'],$factura['vehiculo_id'], $factura['metodo_pago_id'], $factura['tarifa_id']]);
     }
 
     public static function actualizar($factura)
     {
-        return DB::update("UPDATE facturas SET total=?, iva=?,vehiculo_id=?, metodo_pago_id=?, tarifa_id=? WHERE id=?", [$factura['total'], $factura['vehiculo_id'], $factura['metodo_pago_id'], $factura['tarifa_id'], $factura['id']]);
+        return DB::update("UPDATE facturas SET total=?, vehiculo_id=?, metodo_pago_id=?, tarifa_id=? WHERE id=?", [$factura['total'], $factura['vehiculo_id'], $factura['metodo_pago_id'], $factura['tarifa_id'], $factura['id']]);
     }
 
     public static function eliminar($id)
     {
         return DB::delete("DELETE FROM facturas WHERE id=?", [$id]);
+    }
+
+    public function scopeUltimas($query)
+    {
+        return $query->orderBy('id', 'desc');
     }
 }

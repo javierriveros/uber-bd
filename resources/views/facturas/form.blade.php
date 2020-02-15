@@ -10,39 +10,51 @@
         </div>
     @endif
 
-    <div class="form-group @error('valor') is-invalid @enderror">
-        {{ Form::label('valor', 'Valor') }}
-        {{ Form::number('valor', $tarifa->valor, ['class' => 'form-control', 'required' => 'required']) }}
+    @if(!$pasajero)
+        <div class="form-group @error('pasajero_id') is-invalid @enderror">
+            {{ Form::label('pasajero_id', 'Pasajero') }}
+            {{ Form::select('pasajero_id', $usuarios, $factura->pasajero_id, ['class' => 'form-control', 'required' => 'required']) }}
 
-        @error('valor')
+            @error('pasajero_id')
+            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+            @enderror
+        </div>
+    @endif
+
+    <div class="form-group @error('tarifa_id') is-invalid @enderror">
+        {{ Form::label('tarifa_id', 'Destino') }}
+        {{ Form::select('tarifa_id', $tarifas, null, ['class' => 'form-control', 'required' => 'required']) }}
+
+        @error('tarifa_id')
+        <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+        @enderror
+    </div>
+
+    <div class="form-group @error('metodo_pago_id') is-invalid @enderror">
+        {{ Form::label('metodo_pago_id', 'Método de pago') }}
+        {{ Form::select('metodo_pago_id', $metodos_pago, $factura->metodo_pago_id, ['class' => 'form-control', 'required' => 'required']) }}
+
+        @error('metodo_pago_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group @error('origen_id') is-invalid @enderror">
-        {{ Form::label('origen_id', 'Origen') }}
-        {{ Form::select('origen_id', $ubicaciones, null, ['class' => 'form-control', 'required' => 'required']) }}
+    <div class="form-group @error('vehiculo_id') is-invalid @enderror">
+        {{ Form::label('vehiculo_id', 'Vehículo') }}
+        {{ Form::select('vehiculo_id', $vehiculos, $factura->vehiculo_id, ['class' => 'form-control', 'required' => 'required']) }}
 
-        @error('origen_id')
+        @error('vehiculo_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
     </div>
-
-    <div class="form-group @error('destino_id') is-invalid @enderror">
-        {{ Form::label('destino_id', 'Destino') }}
-        {{ Form::select('destino_id', $ubicaciones, null, ['class' => 'form-control', 'required' => 'required']) }}
-
-        @error('destino_id')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-
 
     <div class="form-group text-right">
         {{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}

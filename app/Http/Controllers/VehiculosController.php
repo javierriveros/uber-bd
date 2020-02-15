@@ -27,7 +27,14 @@ class VehiculosController extends Controller
      */
     public function create()
     {
-        $vehiculo = new Vehiculo;
+        $vehiculo = Vehiculo::where('conductor_id', \Auth::user()->id)->get();
+        if ($vehiculo->isEmpty()) {
+            $vehiculo = new Vehiculo;
+        } else {
+            flash('Ya tiene agregado un vehículo')->error();
+            return redirect()->route('conductor');
+        }
+
         return view('vehiculos.create', compact('vehiculo'));
     }
 
@@ -40,11 +47,12 @@ class VehiculosController extends Controller
     public function store(Request $request)
     {
         $vehiculo = new Vehiculo($request->all());
+        $vehiculo->conductor()->associate(\Auth::user());
         // $resultado = Vehiculo::insertar(['placa' => $request->get('placa'), 'modelo' => $request->get('modelo'), 'color' => $request->get('color'), 'conductor_id' => $request->get('conductor_id')]);
         // if ($resultado)
         if ($vehiculo->save()) {
             flash('Se ha guardado el vehículo')->success();
-            return redirect()->route('vehiculos.index');
+            return redirect()->route('conductor');
         } else {
             return view('vehiculos.create', compact('vehiculo'));
         }
@@ -124,6 +132,11 @@ class VehiculosController extends Controller
      */
     public function destroy($id)
     {
+        $vehiculo = Vehiculo::buscar($id);
+        if (!($vehiculo->conductor_id == \Auth::user()->id || \Auth::user()->esAdministrador())) {
+            flash('No tienes permisos para realizar esa acción')->error();
+            return redirect()->route('home');
+        }
         Vehiculo::eliminar($id);
         flash('Se ha eliminado el recurso')->success();
         return redirect()->route('vehiculos.index');

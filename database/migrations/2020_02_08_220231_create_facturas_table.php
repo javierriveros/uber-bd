@@ -16,14 +16,13 @@ class CreateFacturasTable extends Migration
         Schema::create('facturas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('total');
-            $table->integer('iva');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('pasajero_id');
             $table->unsignedBigInteger('vehiculo_id');
             $table->unsignedBigInteger('metodo_pago_id');
             $table->unsignedBigInteger('tarifa_id');
 
-            $table->foreign('user_id')
+            $table->foreign('pasajero_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
