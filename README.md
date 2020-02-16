@@ -10,11 +10,6 @@ vehículos, barrios, tarifas, tipos de pago, etc.
 * Composer [Instrucciones de Instalación](https://www.ionos.com/community/hosting/php/install-and-use-php-composer-on-ubuntu-1604/)
 * PostgresSQL (>10) [Instrucciones de Instalación](https://gorails.com/setup/ubuntu/18.10#postgresql)
 
-## Servidor
-
-Para iniciar la aplicación con el servidor por defecto que trae php
-se ejecuta el comando `$ php artisan serve` dentro de la carpeta del proyecto.
-
 ## Migrar la base de datos
 
 Para que se creen todas las tablas de la base de datos se debe modificar el archivo `.env`
@@ -36,6 +31,16 @@ CREATE DATABASE uber_app;
 ```
 
 Luego ejecutar el comando: `$ php artisan migrate`
+
+## Dependecias de composer
+
+Para instalar las depedencias necesarias para poder ejecutar la aplicación se ejecuta el comando:
+`$ composer install` en la carpeta raíz del proyecto.
+
+## Servidor
+
+Para iniciar la aplicación con el servidor por defecto que trae php
+se ejecuta el comando `$ php artisan serve` dentro de la carpeta del proyecto.
 
 ## Funcionamiento
 
