@@ -37,6 +37,12 @@ Luego ejecutar el comando: `$ php artisan migrate`
 Para instalar las depedencias necesarias para poder ejecutar la aplicación se ejecuta el comando:
 `$ composer install` en la carpeta raíz del proyecto.
 
+## Llave de la aplicación
+
+Laravel requiere de una clave para encriptar los datos, para generarla se ejecuta:
+`$ php artisan key:generate --show`, el resultado se ese comando se asigna a la variable
+de entorno `APP_KEY` ubicada en el archivo `.env`.
+
 ## Servidor
 
 Para iniciar la aplicación con el servidor por defecto que trae php
