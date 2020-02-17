@@ -10,24 +10,6 @@ class Tarifa extends Model
     protected $table = 'tarifas';
     protected $fillable = ['valor', 'origen_id', 'destino_id'];
 
-    /**
-     * Obtener el origen
-     */
-    public function origen()
-    {
-//        return $this->origen = DB::selectOne('SELECT * FROM ubicaciones WHERE id=?', [$this->origen_id]);
-        return $this->belongsTo('App\Ubicacion', 'origen_id');
-    }
-
-    /**
-     * Obtener el destino
-     */
-    public function destino()
-    {
-//        return $this->destino = DB::selectOne('SELECT * FROM ubicaciones WHERE id=?', [$this->destino_id]);
-        return $this->belongsTo('App\Ubicacion', 'destino_id');
-    }
-
     public static function todas()
     {
         return DB::select("SELECT * FROM tarifas ORDER BY id DESC");
@@ -51,5 +33,23 @@ class Tarifa extends Model
     public static function eliminar($id)
     {
         return DB::delete("DELETE FROM tarifas WHERE id=?", [$id]);
+    }
+
+    /**
+     * Obtener el origen
+     */
+    public function origen()
+    {
+//        return $this->origen = DB::selectOne('SELECT * FROM ubicaciones WHERE id=?', [$this->origen_id]);
+        return $this->belongsTo('App\Ubicacion', 'origen_id');
+    }
+
+    /**
+     * Obtener el destino
+     */
+    public function destino()
+    {
+//        return $this->destino = DB::selectOne('SELECT * FROM ubicaciones WHERE id=?', [$this->destino_id]);
+        return $this->belongsTo('App\Ubicacion', 'destino_id');
     }
 }
