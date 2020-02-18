@@ -115,5 +115,14 @@ Route::group([
     });
 });
 
+Route::group([
+    'prefix' => 'bitacoras',
+    'as' => 'bitacoras.',
+    'middleware' => ['auth', 'comprobarAdmin']
+], function () {
+    Route::get('/facturas', 'BitacorasController@facturas')->name('facturas');
+    Route::get('/usuarios', 'BitacorasController@usuarios')->name('usuarios');
+});
+
 
 Auth::routes();

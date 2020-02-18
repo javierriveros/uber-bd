@@ -144,3 +144,26 @@ resources -> contiene las vistas y recursos usados en la aplicación
 routes -> Rutas de la aplicación
 └── web.php
 ```
+
+### Requerimientos de la aplicación
+
+#### Disparadores y bitácora
+
+> Tabla bitacora_facturas
+```sql
+CREATE TABLE bitacora_facturas (
+  operacion varchar(10) NOT NULL,
+  id bigint NOT NULL,
+  total integer NOT NULL,
+  pasajero_id bigint NOT NULL,
+  vehiculo_id bigint NOT NULL,
+  metodo_pago_id bigint NOT NULL,
+  tarifa_id bigint NOT NULL,
+  fecha timestamp NOT NULL
+);
+```
+
+> Disparador
+```sql
+
+```
