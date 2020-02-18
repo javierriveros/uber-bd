@@ -145,25 +145,83 @@ routes -> Rutas de la aplicación
 └── web.php
 ```
 
-### Requerimientos de la aplicación
+## Requerimientos de la aplicación
 
-#### Disparadores y bitácora
+### Disparadores y bitácora
+
+#### Facturas
 
 > Tabla bitacora_facturas
 ```sql
 CREATE TABLE bitacora_facturas (
   operacion varchar(10) NOT NULL,
+  usuario text NOT NULL,
+  fecha timestamp NOT NULL,
   id bigint NOT NULL,
   total integer NOT NULL,
   pasajero_id bigint NOT NULL,
   vehiculo_id bigint NOT NULL,
   metodo_pago_id bigint NOT NULL,
-  tarifa_id bigint NOT NULL,
-  fecha timestamp NOT NULL
+  tarifa_id bigint NOT NULL
+);
+
+
+```
+
+> Disparador
+```sql
+CREATE OR REPLACE FUNCTION auditar_cambio_facturas() RETURNS TRIGGER AS $$
+BEGIN
+  IF (TG_OP = 'DELETE' OR TG_OP = 'UPDATE') THEN 
+    INSERT INTO bitacora_facturas SELECT TG_OP, user, now(), OLD.id, OLD.total, OLD.pasajero_id, OLD.vehiculo_id, OLD.metodo_pago_id, OLD.tarifa_id;
+    RETURN OLD;
+  ELSIF (TG_OP = 'INSERT') THEN 
+    INSERT INTO bitacora_facturas SELECT TG_OP, user, now(), NEW.id, NEW.total, NEW.pasajero_id, NEW.vehiculo_id, NEW.metodo_pago_id, NEW.tarifa_id;
+    RETURN NEW;
+  END IF;
+  RETURN NULL;
+END;
+$$LANGUAGE plpgsql;
+
+CREATE TRIGGER auditar_cambio_facturas
+AFTER INSERT OR UPDATE OR DELETE ON facturas
+FOR EACH ROW EXECUTE PROCEDURE auditar_cambio_facturas();
+
+```
+
+#### Usuarios
+
+> Tabla bitácora usuarios
+```sql
+CREATE TABLE bitacora_usuarios (
+  operacion varchar(10) NOT NULL,
+  usuario text NOT NULL,
+  fecha timestamp NOT NULL,
+  id bigint NOT NULL,
+  name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  tipo integer NOT NULL ,
+  apellido varchar(255) NOT NULL,
+  celular  varchar(255) NOT NULL
 );
 ```
 
 > Disparador
 ```sql
+CREATE OR REPLACE FUNCTION auditar_cambio_usuarios() RETURNS TRIGGER AS $$
+BEGIN
+  IF (TG_OP = 'DELETE' or TG_OP = 'UPDATE') THEN 
+    INSERT INTO bitacora_usuarios SELECT TG_OP, user, now(), OLD.id, OLD.name, OLD.email, OLD.tipo, OLD.apellido, OLD.celular;
+    RETURN OLD;
+  ELSIF (TG_OP = 'INSERT') THEN 
+    INSERT INTO bitacora_usuarios SELECT TG_OP, user, now(), NEW.id, NEW.name, NEW.email, NEW.tipo, NEW.apellido, NEW.celular;
+    RETURN NEW;
+  END IF;
+  RETURN NULL;
+END;
+$$LANGUAGE plpgsql;
 
+CREATE TRIGGER auditar_cambio_usuarios
+AFTER INSERT OR UPDATE OR DELETE ON users
+FOR EACH ROW EXECUTE PROCEDURE auditar_cambio_usuarios();
 ```
