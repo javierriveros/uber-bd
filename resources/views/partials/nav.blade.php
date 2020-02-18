@@ -40,6 +40,20 @@
                                    href="{{ route('ubicaciones.index') }}"><i class="fa fa-map-marker"></i> {{ __('Ubicaciones') }}</a>
                             </div>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Bitácora <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
+                                <a class="dropdown-item"
+                                   href="{{ route('bitacoras.usuarios') }}"><i class="fa fa-users"></i> {{ __('Usuarios') }}</a>
+                                <a class="dropdown-item"
+                                   href="{{ route('bitacoras.facturas') }}"><i class="fa fa-calculator"></i> {{ __('Facturas') }}</a>
+                            </div>
+                        </li>
                     @endif
                     @if(Auth::user()->esConductor() && $vehiculo == null)
                         <li class="nav-item">
