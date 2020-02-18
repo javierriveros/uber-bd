@@ -16,10 +16,11 @@
                         <th>Fecha</th>
                         <th>ID</th>
                         <th>Total</th>
-                        <th>ID Pasajero</th>
-                        <th>ID Vehiculo</th>
-                        <th>ID Método de pago</th>
-                        <th>ID Tarifa</th>
+                        <th>Pasajero</th>
+                        <th>Placa del vehículo</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Método de pago</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,10 +31,13 @@
                             <td>{{ date('Y m d H:i:s',strtotime($factura->fecha)) }}</td>
                             <td>{{ $factura->id }}</td>
                             <td>{{ $factura->total }}</td>
-                            <td>{{ $factura->pasajero_id }}</td>
-                            <td>{{ $factura->vehiculo_id }}</td>
-                            <td>{{ $factura->metodo_pago_id }}</td>
-                            <td>{{ $factura->tarifa_id }}</td>
+                            <td>{{ $factura->pasajero_name }} {{ $factura->pasajero_apellido }} <br><span
+                                    class="badge badge-dark font-weight-normal">Cel: {{ $factura->pasajero_celular }}</span>
+                            </td>
+                            <td>{{ $factura->vehiculo_placa }}</td>
+                            <td>Barrio: {{ $factura->origen_barr }}<br> Dirección: {{ $factura->origen_dir }}</td>
+                            <td>Barrio: {{ $factura->destino_barr }}<br> Dirección: {{ $factura->destino_dir }}</td>
+                            <td>{{ $factura->metodo_pago_nombre_met }}</td>
                         </tr>
                     @endforeach
                     </tbody>

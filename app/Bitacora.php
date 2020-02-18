@@ -11,11 +11,11 @@ class Bitacora extends Model
 
     public static function facturas()
     {
-        return DB::select("SELECT * FROM bitacora_facturas ORDER BY fecha DESC");
+        return DB::select("SELECT * FROM v_bitacora_facturas ORDER BY fecha DESC;");
     }
 
     public static function usuarios()
     {
-        return DB::select("SELECT * FROM bitacora_usuarios ORDER BY fecha DESC");
+        return DB::select("SELECT * FROM bitacora_usuarios ORDER BY fecha DESC;");
     }
 }

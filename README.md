@@ -287,3 +287,28 @@ CREATE VIEW usuarios_conductores AS SELECT COUNT(*) FROM users WHERE tipo=2;
 ```sql
 CREATE VIEW usuarios_administradores AS SELECT COUNT(*) FROM users WHERE tipo=3;
 ```
+
+> Vista para obtener la bitácora de las facturas
+```sql
+CREATE VIEW v_bitacora_facturas AS
+    SELECT b.operacion, 
+        b.usuario, 
+        b.fecha, 
+        b.id, 
+        b.total, 
+        p.name AS pasajero_name, 
+        p.apellido AS pasajero_apellido,
+        p.celular AS pasajero_celular,
+        m.nombre_met AS metodo_pago_nombre_met,
+        v.placa AS vehiculo_placa,
+        ub1.direccion AS origen_dir, 
+        ub1.nombre_barr AS origen_barr,
+        ub2.direccion AS destino_dir,
+        ub2.nombre_barr AS destino_barr
+    FROM bitacora_facturas b LEFT JOIN users p ON p.id=b.pasajero_id
+        LEFT JOIN metodos_pago m ON m.id=b.metodo_pago_id
+        LEFT JOIN tarifas t ON t.id=b.tarifa_id
+        LEFT JOIN vehiculos v ON v.id=b.vehiculo_id
+        LEFT JOIN ubicaciones ub1 on ub1.id=t.origen_id
+        LEFT JOIN ubicaciones ub2 on ub2.id=t.destino_id;
+```

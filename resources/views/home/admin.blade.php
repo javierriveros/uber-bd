@@ -110,92 +110,38 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-12 text-center mb-3">
-                        <h2 class="border-bottom pb-2">Bitácoras</h2>
-                    </div>
-                    <div class="col-12 mb-2 mt-1">
-                        <div class="card text-dark bg-light">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-user"></i>
-                                </div>
-                                <span>Usuarios</span>
-                            </div>
-                            <a class="card-footer text-dark small" href="{{ route('bitacoras.usuarios') }}">
-                                <span class="float-left">Ver</span>
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="col-12 mb-2 mt-1">
-                        <div class="card text-dark bg-light">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-calculator"></i>
-                                </div>
-                                <span>Facturas</span>
-                            </div>
-                            <a class="card-footer text-dark small" href="{{ route('bitacoras.facturas') }}">
-                                <span class="float-left">Ver</span>
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                            </a>
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2 class="border-bottom pb-2">Bitácoras</h2>
+            </div>
+            <div class="col-12 col-md-6 mb-2 mt-1">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-user"></i>
                         </div>
+                        <span>Usuarios</span>
                     </div>
+                    <a class="card-footer text-dark small" href="{{ route('bitacoras.usuarios') }}">
+                        <span class="float-left">Ver</span>
+                        <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                    </a>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-12 text-center mb-3">
-                        <h2 class="border-bottom pb-2">Reportes</h2>
-                    </div>
-                    <div class="col-12 mb-2 mt-1">
-                        <div class="card text-dark bg-light">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-user"></i>
-                                </div>
-                                <span>Usuarios</span>
-                            </div>
-                            <a class="card-footer text-dark small" href="{{ route('usuarios.reporte') }}">
-                                <span class="float-left">Ver</span>
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="col-12 mb-2 mt-1">
-                        <div class="card text-dark bg-light">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-calculator"></i>
-                                </div>
-                                <span>Facturas</span>
-                            </div>
-                            <a class="card-footer text-dark small" href="{{ route('facturas.reporte') }}">
-                                <span class="float-left">Ver</span>
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                            </a>
+            <div class="col-12 col-md-6 mb-2 mt-1">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-calculator"></i>
                         </div>
+                        <span>Facturas</span>
                     </div>
-
-                    <div class="col-12 mb-2 mt-1">
-                        <div class="card text-dark bg-light">
-                            <div class="card-body">
-                                <div class="card-body-icon">
-                                    <i class="fa fa-fw fa-calculator"></i>
-                                </div>
-                                <span>Facturas</span>
-                            </div>
-                            <a class="card-footer text-dark small" href="{{ route('bitacoras.facturas') }}">
-                                <span class="float-left">Ver</span>
-                                <span class="float-right"><i class="fa fa-angle-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
+                    <a class="card-footer text-dark small" href="{{ route('bitacoras.facturas') }}">
+                        <span class="float-left">Ver</span>
+                        <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                    </a>
                 </div>
             </div>
         </div>
