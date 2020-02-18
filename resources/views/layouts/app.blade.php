@@ -12,16 +12,19 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link data-rh="true" rel="shortcut icon" type="image/x-icon" href="https://d3i4yxtzktqr9n.cloudfront.net/uber-sites/17677bc2cadb48697a3d2da2efc65d8c.ico"/>
+    <link data-rh="true" rel="shortcut icon" type="image/x-icon"
+          href="https://d3i4yxtzktqr9n.cloudfront.net/uber-sites/17677bc2cadb48697a3d2da2efc65d8c.ico"/>
 </head>
 
 <body>
@@ -33,7 +36,9 @@
     <main class="py-4">
         @yield('content')
     </main>
+
 </div>
+@yield('script')
 </body>
 
 </html>

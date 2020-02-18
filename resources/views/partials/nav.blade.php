@@ -54,6 +54,22 @@
                                    href="{{ route('bitacoras.facturas') }}"><i class="fa fa-calculator"></i> {{ __('Facturas') }}</a>
                             </div>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Reportes <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
+                                <a class="dropdown-item"
+                                   href="{{ route('usuarios.reporte') }}"> {{ __('Cantidad de usuarios') }}</a>
+                                <a class="dropdown-item"
+                                   href="{{ route('usuarios.reporteRoles') }}"> {{ __('Roles de usuarios') }}</a>
+                                <a class="dropdown-item"
+                                   href="{{ route('facturas.reporte') }}"> {{ __('Facturas') }}</a>
+                            </div>
+                        </li>
                     @endif
                     @if(Auth::user()->esConductor() && Auth::user()->vehiculo == null)
                         <li class="nav-item">

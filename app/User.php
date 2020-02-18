@@ -83,6 +83,21 @@ class User extends Authenticatable
         return DB::delete("DELETE FROM users WHERE id=?", [$id]);
     }
 
+    public static function obtenerPasajeros()
+    {
+        return DB::selectOne("SELECT * FROM usuarios_pasajeros;");
+    }
+
+    public static function obtenerConductores()
+    {
+        return DB::selectOne("SELECT * FROM usuarios_conductores;");
+    }
+
+    public static function obtenerAdministradores()
+    {
+        return DB::selectOne("SELECT * FROM usuarios_administradores;");
+    }
+
     /**
      * Obtener el conductor
      */

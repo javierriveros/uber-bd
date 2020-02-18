@@ -73,6 +73,8 @@ Route::group([
     Route::put('/{id}', 'UsuariosController@update')->name('update');
     Route::patch('/{id}', 'UsuariosController@update')->name('update');
     Route::delete('/{id}', 'UsuariosController@destroy')->name('destroy');
+    Route::get('reporte', 'UserChartController@usuarios')->name('reporte');
+    Route::get('reporteRoles', 'UserChartController@roles')->name('reporteRoles');
 });
 
 Route::group([
@@ -98,6 +100,7 @@ Route::group([
     'as' => 'facturas.',
     'middleware' => ['auth']
 ], function () {
+    Route::get('reporte', 'UserChartController@facturas')->name('reporte');
     Route::group(['middleware' => 'comprobarAdmin'], function () {
         Route::get('/', 'FacturasController@index')->name('index');
         // Evita que se editen las facturas

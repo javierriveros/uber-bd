@@ -265,3 +265,25 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 ```
+
+### Vistas
+
+> Vista para obtener el total de las facturas
+```sql
+CREATE VIEW total_facturas AS SELECT total FROM facturas;
+```
+
+> Vista para obtener los usuarios pasajeros
+```sql
+CREATE VIEW usuarios_pasajeros AS SELECT COUNT(*) FROM users WHERE tipo=1;
+```
+
+> Vista para obtener los usuarios conductores
+```sql
+CREATE VIEW usuarios_conductores AS SELECT COUNT(*) FROM users WHERE tipo=2;
+```
+
+> Vista para obtener los usuarios administradores
+```sql
+CREATE VIEW usuarios_administradores AS SELECT COUNT(*) FROM users WHERE tipo=3;
+```

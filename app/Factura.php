@@ -22,6 +22,11 @@ class Factura extends Model
         return DB::selectOne("SELECT * FROM facturas WHERE id=?", [$id]);
     }
 
+    public static function obtenerTotal()
+    {
+        return DB::select("select * from total_facturas;");
+    }
+
     public static function insertar($factura)
     {
         return DB::insert("INSERT INTO facturas(total, pasajero_id, vehiculo_id, metodo_pago_id, tarifa_id) values (?, ?)", [$factura['total'], $factura['pasajero_id'],$factura['vehiculo_id'], $factura['metodo_pago_id'], $factura['tarifa_id']]);
