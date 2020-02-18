@@ -108,11 +108,10 @@ Route::group([
     });
 
     // Permite a un pasajero solicitar un viaje
-    Route::group(['middleware' => 'comprobarPasajeroAdmin'], function () {
-        Route::get('/create', 'FacturasController@create')->name('create');
-        Route::get('/{factura}', 'FacturasController@show')->name('show');
-        Route::post('/', 'FacturasController@store')->name('store');
-    });
+
+    Route::get('/create', 'FacturasController@create')->name('create');
+    Route::get('/{factura}', 'FacturasController@show')->name('show');
+    Route::post('/', 'FacturasController@store')->name('store');
 });
 
 Route::group([

@@ -82,4 +82,12 @@ class User extends Authenticatable
     {
         return DB::delete("DELETE FROM users WHERE id=?", [$id]);
     }
+
+    /**
+     * Obtener el conductor
+     */
+    public function vehiculo()
+    {
+        return $this->hasMany('App\Vehiculo', 'conductor_id');
+    }
 }

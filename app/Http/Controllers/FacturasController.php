@@ -81,7 +81,12 @@ class FacturasController extends Controller
      */
     public function show(Factura $factura)
     {
-        return view('facturas.show', compact('factura'));
+        if (\Auth::user()->esConductor() && \Auth::user()->id != $factura->vehiculo->conductor_id) {
+            flash('No tienes permisos para realizar esa acción')->error();
+            return redirect()->route('conductor');
+        }
+        $vehiculo = null;
+        return view('facturas.show', compact('factura', 'vehiculo'));
     }
 
     /**

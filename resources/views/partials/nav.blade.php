@@ -55,7 +55,7 @@
                             </div>
                         </li>
                     @endif
-                    @if(Auth::user()->esConductor() && $vehiculo == null)
+                    @if(Auth::user()->esConductor() && Auth::user()->vehiculo == null)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('vehiculos.create') }}">{{ __('Agregar mi vehículo') }}</a>
                         </li>

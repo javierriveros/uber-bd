@@ -225,3 +225,43 @@ CREATE TRIGGER auditar_cambio_usuarios
 AFTER INSERT OR UPDATE OR DELETE ON users
 FOR EACH ROW EXECUTE PROCEDURE auditar_cambio_usuarios();
 ```
+
+### Funciones
+
+> Obtener las facturas de un conductor
+```sql
+CREATE FUNCTION facturas_conductor (id_veh int) 
+RETURNS TABLE (
+  id bigint,
+  total integer,
+  pasajero_name varchar,
+  pasajero_apellido varchar,
+  pasajero_celular varchar,
+  metodo_pago_nombre_met varchar,
+  origen_dir varchar,
+  origen_barr varchar,
+  destino_dir varchar,
+  destino_barr varchar
+)
+AS $$
+BEGIN
+  RETURN QUERY
+    SELECT f.id, 
+          f.total, 
+          p.name AS pasajero_name, 
+          p.apellido AS pasajero_apellido,
+          p.celular AS pasajero_celular,
+          m.nombre_met AS metodo_pago_nombre_met,
+          ub1.direccion AS origen_dir, 
+          ub1.nombre_barr AS origen_barr,
+          ub2.direccion AS destino_dir,
+          ub2.nombre_barr AS destino_barr
+      FROM facturas f LEFT JOIN users p ON p.id=f.pasajero_id
+                      LEFT JOIN metodos_pago m ON m.id=f.metodo_pago_id
+                      LEFT JOIN tarifas t ON t.id=f.tarifa_id
+                      LEFT JOIN ubicaciones ub1 on ub1.id=t.origen_id
+                      LEFT JOIN ubicaciones ub2 on ub2.id=t.destino_id
+        WHERE f.vehiculo_id=id_veh;
+END; $$
+LANGUAGE plpgsql;
+```
