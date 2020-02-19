@@ -268,9 +268,9 @@ LANGUAGE plpgsql;
 
 ### Vistas
 
-> Vista para obtener el total de las facturas
+> Vista para obtener el total por día y la fecha  de las facturas
 ```sql
-CREATE VIEW total_facturas AS SELECT total FROM facturas;
+CREATE VIEW total_facturas AS SELECT CAST(created_at AS date) AS fecha, SUM(total) AS total FROM facturas GROUP BY CAST(created_at AS date) ORDER BY fecha;
 ```
 
 > Vista para obtener los usuarios pasajeros

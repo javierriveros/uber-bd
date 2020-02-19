@@ -44,22 +44,23 @@ class UserChartController extends Controller
     {
         $total = Factura::obtenerTotal();
         $datos = collect([]);
+        $fechas = collect([]);
+
         foreach ($total as $dato) {
             $datos->push($dato->total);
+            $fechas->push(date('F d Y',strtotime($dato->fecha)));
         }
 
         $reporte = new UserChart;
-        $reporte->title('Precios de viajes realizados', 30, "rgb(255, 99, 132)", true);
-        $reporte->displaylegend(false);
-        $reporte->dataset('Precio del viaje', 'line', $datos)
+        $reporte->title('Ganancia de viajes realizados por día', 30, "rgb(255, 99, 132)", true);
+        $reporte->labels($fechas);
+
+        $reporte->dataset('Ganancia del día', 'line', $datos)
             ->color("rgb(255, 99, 132)")
             ->backgroundcolor("rgb(255, 99, 132)")
             ->fill(false);
         $reporte->barwidth(0.0);
         $reporte->displaylegend(false);
-
-        $reporte->labels($datos);
-
 
 
         return view('charts.facturas', [ 'reporteFacturas' => $reporte ] );
