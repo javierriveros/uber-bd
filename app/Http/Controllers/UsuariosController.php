@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarUsuario;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,11 +37,11 @@ class UsuariosController extends Controller
     /**
      * Actualiza el usuario en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarUsuario|Request  $request
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuardarUsuario $request, $id)
     {
         $user = new \stdClass;
 

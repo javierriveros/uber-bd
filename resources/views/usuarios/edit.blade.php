@@ -25,18 +25,39 @@
                             {{ Form::label('email', 'Correo')}}
                             {{ Form::email('email', $usuario->email, ['class' => 'form-control', 'readonly' => true,
                             'disabled' => true]) }}
+
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre')}}
                             {{ Form::text('name', $usuario->name, ['class' => 'form-control', 'required' => true]) }}
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {{ Form::label('apellido', 'Apellido')}}
                             {{ Form::text('apellido', $usuario->apellido, ['class' => 'form-control', 'required' => true]) }}
+                            @error('apellido')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {{ Form::label('celular', 'Celular')}}
                             {{ Form::text('celular', $usuario->celular, ['class' => 'form-control', 'required' => true]) }}
+                            @error('celular')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         @if (Auth::user()->esAdministrador())
                             <div class="form-group">
@@ -47,6 +68,11 @@
                                     '3' => 'Administrador'
                                 ], $usuario->tipo, ['class' => 'form-control']) }}
                             </div>
+                            @error('tipo')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         @endif
 
                         <div class="form-group">
