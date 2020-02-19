@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factura;
+use App\Http\Requests\GuardarFactura;
 use App\MetodoPago;
 use App\Tarifa;
 use Illuminate\Http\Request;
@@ -42,10 +43,10 @@ class FacturasController extends Controller
     /**
      * Guarda un recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarFactura|Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarFactura $request)
     {
         $validData = $request->validate([
             'vehiculo_id' => 'required|numeric',

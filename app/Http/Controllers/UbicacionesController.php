@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarUbicacion;
 use App\Ubicacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,10 +35,10 @@ class UbicacionesController extends Controller
     /**
      * Guarda un recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarUbicacion|Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarUbicacion $request)
     {
         $ubicacion = new Ubicacion($request->all());
         // $resultado = Ubicacion::insertar(['nombre_barr' => $request->get('nombre_barr'), 'direccion' => $request->get('direccion')]);
@@ -69,11 +70,11 @@ class UbicacionesController extends Controller
     /**
      * Actualiza el recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarUbicacion|Request  $request
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuardarUbicacion $request, $id)
     {
         $ubicacion = Ubicacion::buscar($id);
 

@@ -45,6 +45,7 @@ class HomeController extends Controller
     public function conductor()
     {
         $vehiculo = Vehiculo::where('conductor_id', \Auth::user()->id)->first();
+//        dd(Auth::user()->vehiculo);
 
         $facturas = DB::select("select * from facturas_conductor(?);", [$vehiculo->id ?? null]);
         return view('home.conductor', compact('vehiculo', 'facturas'));

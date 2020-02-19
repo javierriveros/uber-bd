@@ -66,7 +66,7 @@
                         </div>
                         <span>Vehículos</span>
                     </div>
-                    <a class="card-footer text-white small" href="{{ route('usuarios.index') }}">
+                    <a class="card-footer text-white small" href="{{ route('vehiculos.index') }}">
                         <span class="float-left">Administrar</span>
                         <span class="float-right">
                         <i class="fa fa-angle-right"></i>

@@ -7,17 +7,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
+            @if ($vehiculo != null)
             <div class="col-12 col-md-4">
                 <div class="card">
                     <div class="card-header">Tu vehículo</div>
-
                     <div class="card-body">
-                        @if ($vehiculo != null)
-                            <h5>Tu vehículo: {{$vehiculo->placa}} <br><small>Color: {{$vehiculo->color}}</small><br> <small>Modelo: {{$vehiculo->modelo}}</small></h5>
-                        @endif
+                        <h5>Tu vehículo: {{$vehiculo->placa}} <br><small>Color: {{$vehiculo->color}}</small><br> <small>Modelo: {{$vehiculo->modelo}}</small></h5>
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="col-12 col-md-8">
                 <table class="table table-hover table-responsive-sm mt-2">

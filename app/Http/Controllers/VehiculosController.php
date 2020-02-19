@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Ubicacion;
 use App\Vehiculo;
 use Illuminate\Http\Request;
+use App\Http\Requests\GuardarVehiculo;
 
 class VehiculosController extends Controller
 {
@@ -41,10 +41,10 @@ class VehiculosController extends Controller
     /**
      * Guarda un recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarVehiculo|Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarVehiculo $request)
     {
         $vehiculo = new Vehiculo($request->all());
         $vehiculo->conductor()->associate(\Auth::user());
@@ -81,11 +81,11 @@ class VehiculosController extends Controller
     /**
      * Actualiza el recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarVehiculo|Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuardarVehiculo $request, $id)
     {
         $vehiculo = Vehiculo::buscar($id);
 

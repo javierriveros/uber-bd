@@ -10935,6 +10935,10 @@ a.text-dark:focus {
   flex: 1;
 }
 
+.invalid-feedback {
+  display: block;
+}
+
 @media (min-width: 768px) {
   .flex-md-equal > * {
     flex: 1;

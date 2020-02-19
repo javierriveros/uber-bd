@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\MetodoPago;
 use App\Ubicacion;
+use App\MetodoPago;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\GuardarMetodoPago;
 
 class MetodosPagoController extends Controller
 {
@@ -35,10 +35,10 @@ class MetodosPagoController extends Controller
     /**
      * Guarda un recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarMetodoPago|Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarMetodoPago $request)
     {
         $metodo_pago = new MetodoPago($request->all());
         // $resultado = MetodoPago::insertar(['nombre_met' => $request->get('nombre_met'), 'descuento' => $request->get('descuento')]);
@@ -69,11 +69,11 @@ class MetodosPagoController extends Controller
     /**
      * Actualiza el recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarMetodoPago|Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuardarMetodoPago $request, $id)
     {
         $metodo_pago = MetodoPago::buscar($id);
 

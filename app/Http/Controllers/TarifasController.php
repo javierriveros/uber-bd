@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarTarifa;
 use App\Tarifa;
 use App\Ubicacion;
 use Illuminate\Support\Facades\DB;
@@ -36,10 +37,10 @@ class TarifasController extends Controller
     /**
      * Guarda un recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarTarifa|Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarTarifa $request)
     {
         $tarifa = new Tarifa($request->all());
         // $resultado = Tarifa::insertar(['valor' => $request->get('valor'), 'origen_id' => $request->get('origen_id'), 'destino_id' => $request->get('destino_id')])
@@ -73,11 +74,11 @@ class TarifasController extends Controller
     /**
      * Actualiza el recurso en la BD.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GuardarTarifa|Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuardarTarifa $request, $id)
     {
         $tarifa = Tarifa::buscar($id);
 
