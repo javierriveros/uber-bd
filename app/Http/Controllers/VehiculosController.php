@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Vehiculo;
 use Illuminate\Http\Request;
 use App\Http\Requests\GuardarVehiculo;
+use App\Http\Requests\ActualizarVehiculo;
 
 class VehiculosController extends Controller
 {
@@ -81,11 +82,11 @@ class VehiculosController extends Controller
     /**
      * Actualiza el recurso en la BD.
      *
-     * @param  GuardarVehiculo|Request  $request
+     * @param  ActualizarVehiculo|Request  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GuardarVehiculo $request, $id)
+    public function update(ActualizarVehiculo $request, $id)
     {
         $vehiculo = Vehiculo::buscar($id);
 

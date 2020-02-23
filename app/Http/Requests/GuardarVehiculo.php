@@ -25,9 +25,16 @@ class GuardarVehiculo extends FormRequest
     public function rules()
     {
         return [
-            'placa' => 'required',
+            'placa' => ['required', 'unique:vehiculos', 'regex:/[A-Z]{3}-[0-9]{3}/'],
             'modelo' => 'required|numeric',
             'color' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'placa.regex' => 'La placa debe tener el patrón ABC-123'
         ];
     }
 }
