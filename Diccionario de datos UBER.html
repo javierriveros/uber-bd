@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Javier Riveros">
+    <meta name="description" content="Diccionario de datos UBER">
+    <title>Diccionario de datos UBER</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        // Highlight table corresponding to the current fragment in the URL.
+        $(document).ready(function () {
+            $("a").click(function () {
+                var elem = $(this);
+                // Remove all classes from tables.
+                $("table").removeClass("focused")
+                // Get a.href value and extract its fragment id.
+                var id = elem.attr("href");
+                // Highlight table using fragment id.
+                $(id).addClass("focused");
+            });
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:visited {
+            color: #333;
+        }
+
+        table a {
+            color: #6301e4;
+        }
+
+        abbr {
+            cursor: help;
+        }
+
+        header {
+            color: #6A6A6A;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        table caption {
+            font-size: 120%;
+            font-weight: bold;
+        }
+
+        table,
+        td,
+        th {
+            border-color: silver;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        caption {
+            color: black;
+        }
+
+        td,
+        th {
+            padding: 1em;
+        }
+
+        tr:hover {
+            color: #333;
+            background-color: #F2F2F2;
+        }
+
+        th {
+            background-color: #F5F5F5;
+        }
+
+        td {
+            color: #6A6A6A;
+        }
+
+        ul {
+            font-style: italic;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .field {
+            color: #4C4C4C;
+            font-weight: bold;
+        }
+
+        .focused {
+            outline-color: aqua;
+            outline-style: solid;
+            outline-width: thin;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>UBER
+        <br> Diccionario de datos</h1>
+    <p>
+        <em>2020-02-26</em>
+    </p>
+    <p>
+        <em></em>
+    </p>
+</header>
+
+<nav>
+    <h2>Lista de tablas</h2>
+    <ul>
+        <li>
+            <a href='#ubicaciones'>Ubicaciones</a>
+        </li>
+        <li>
+            <a href='#tarifas'>Tarifas</a>
+        </li>
+        <li>
+            <a href='#metodos'>Métodos de Pago</a>
+        </li>
+        <li>
+            <a href='#vehiculos'>Vehículos</a>
+        </li>
+        <li>
+            <a href='#facturas'>Facturas</a>
+        </li>
+        <li>
+            <a href='#usuarios'>Usuarios</a>
+        </li>
+    </ul>
+</nav>
+
+<table id='constraints'>
+    <caption>Restricciones</caption>
+    <tr>
+        <td colspan='12'>Restricciones que pueden tener los campos</td>
+    </tr>
+    <tr>
+        <th>Restricción</th>
+        <th>Descripción</th>
+    </tr>
+    <tr>
+        <td class='field'>PK</td>
+        <td>Llave primaria</td>
+    </tr>
+    <tr>
+        <td class='field'>FK</td>
+        <td>Llave foranea</td>
+    </tr>
+    <tr>
+        <td class='field'>NN</td>
+        <td>No nulo</td>
+    </tr>
+    <tr>
+        <td class='field'>UQ</td>
+        <td>Único</td>
+    </tr>
+    <tr>
+        <td class='field'>BIN</td>
+        <td>Binario o BLOB(Binary large object)</td>
+    </tr>
+    <tr>
+        <td class='field'>UN</td>
+        <td>Sin signo</td>
+    </tr>
+    <tr>
+        <td class='field'>ZF</td>
+        <td>Llenar con cero</td>
+    </tr>
+    <tr>
+        <td class='field'>AI</td>
+        <td>Auto incremental</td>
+    </tr>
+</table>
+
+<div>
+    <table id='ubicaciones'>
+        <caption>Ubicaciones</caption>
+        <tr>
+            <td colspan='12'>Tabla para almanenar la información de las ubicaciones</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria que identifica la ubicación</td>
+        </tr>
+        <tr>
+            <td class='field'>nombre_barr</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Nombre del barrio</td>
+        </tr>
+        <tr>
+            <td class='field'>direccion</td>
+            <td>TEXT</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Dirección detalada de la ubicación</td>
+        </tr>
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación de la ubicación</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización de la ubicación</td>
+        </tr>
+    </table>
+
+    <table id='tarifas'>
+        <caption>Tarifas</caption>
+        <tr>
+            <td colspan='12'>Tabla para almacenar las tarifas correspondientes a cada ubicación</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria que identifica la tarifa</td>
+        </tr>
+        <tr>
+            <td class='field'>valor</td>
+            <td>INTEGER</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Precio de la tarifa en miles de pesos</td>
+        </tr>
+        <tr>
+            <td class='field'>origen_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#ubicaciones'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia a la ubicación de origen</td>
+        </tr>
+        <tr>
+            <td class='field'>destino_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#ubicaciones'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia la ubicación de destino</td>
+        </tr>
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización</td>
+        </tr>
+    </table>
+
+    <table id='metodos'>
+        <caption>Métodos de Pago</caption>
+        <tr>
+            <td colspan='12'>Tabla para almacenar los distintos métodos de pago</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria que identifica el método de pago</td>
+        </tr>
+        <tr>
+            <td class='field'>nombre_met</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Nombre del método de pago (Tarjéta de cŕedito, Efectivo, PayPal, etc)</td>
+        </tr>
+        <tr>
+            <td class='field'>descuento</td>
+            <td>TEXT</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Descuento en miles de pesos realizado al cancelar con ese método de pago</td>
+        </tr>
+
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación del método de pago</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización del método de pago</td>
+        </tr>
+    </table>
+
+    <table id='vehiculos'>
+        <caption>Vehículos</caption>
+        <tr>
+            <td colspan='12'>Tabla para almacenar los vehículos de los conductores registrados en la aplicación</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria</td>
+        </tr>
+        <tr>
+            <td class='field'>placa</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Placa del vehículo (Sujeta al formato ABC-123)</td>
+        </tr>
+        <tr>
+            <td class='field'>modelo</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Modelo del vehículo</td>
+        </tr>
+        <tr>
+            <td class='field'>color</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Describe el color del vehículo</td>
+        </tr>
+        <tr>
+            <td class='field'>conductor_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#usuarios'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia al conductor del vehículo</td>
+        </tr>
+
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación del vehículo</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización del vehículo</td>
+        </tr>
+    </table>
+
+
+    <table id='facturas'>
+        <caption>Facturas</caption>
+        <tr>
+            <td colspan='12'>Tabla para almacenar las facturas de los viajes solicitados a través de la aplicación</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria de la factura</td>
+        </tr>
+        <tr>
+            <td class='field'>total</td>
+            <td>INTEGER</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Total del viaje (después de realizado el descuento por método de pago)</td>
+        </tr>
+
+        <tr>
+            <td class='field'>pasajero_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#usuarios'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia al pasajéro que solicitó el viaje</td>
+        </tr>
+        <tr>
+            <td class='field'>vehiculo_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#vehiculos'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia al vehículo que el usuario seleccionó para el viaje</td>
+        </tr>
+        <tr>
+            <td class='field'>metodo_pago_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#metodos'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia el método de pago que seleccionó el pasajero</td>
+        </tr>
+        <tr>
+            <td class='field'>tarifa_id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>
+                <a href='#tarifas'>&#10004;</a>
+            </td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Referencia la tarifa con origen y destino que solicitó el pasajero</td>
+        </tr>
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación de la factura</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización de la factura</td>
+        </tr>
+    </table>
+
+    <table id='usuarios'>
+        <caption>Usuarios</caption>
+        <tr>
+            <td colspan='12'>Tabla para almacenar los usuarios de la aplicación</td>
+        </tr>
+        <tr>
+            <th>Nombre columna</th>
+            <th>Tipo de dato</th>
+            <th>
+                <abbr title='Primary Key'>PK</abbr>
+            </th>
+            <th>
+                <abbr title='Foreign Key'>FK</abbr>
+            </th>
+            <th>
+                <abbr title='Not Null'>NN</abbr>
+            </th>
+            <th>
+                <abbr title='Unique'>UQ</abbr>
+            </th>
+            <th>
+                <abbr title='Binary'>BIN</abbr>
+            </th>
+            <th>
+                <abbr title='Unsigned'>UN</abbr>
+            </th>
+            <th>
+                <abbr title='Zero Fill'>ZF</abbr>
+            </th>
+            <th>
+                <abbr title='Auto Increment'>AI</abbr>
+            </th>
+            <th>Default</th>
+            <th>Comentario</th>
+        </tr>
+        <tr>
+            <td class='field'>id</td>
+            <td>INT(10)</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td></td>
+            <td>Llave primaria</td>
+        </tr>
+        <tr>
+            <td class='field'>nombre</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Nombre del usuario</td>
+        </tr>
+        <tr>
+            <td class='field'>apellido</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Apellido del usuario</td>
+        </tr>
+        <tr>
+            <td class='field'>celular</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Número telefónico del usuario (Sujeto al formato 3XXXXXXXXX)</td>
+        </tr>
+
+        <tr>
+            <td class='field'>email</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Correo electrónico del usuario</td>
+        </tr>
+        <tr>
+            <td class='field'>contrasena</td>
+            <td>VARCHAR(255)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td></td>
+            <td>Contraseña encriptada del usuario</td>
+        </tr>
+        <tr>
+            <td class='field'>tipo</td>
+            <td>INT(2)</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&#10004;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>1</td>
+            <td>
+                Nivel de permisos del usuario:
+                <br>
+                <strong>1</strong>: Pasajero (Usuario por defecto)
+                <br>
+                <strong>2</strong>: Conductor
+                <br>
+                <strong>3</strong>: Administrador
+            </td>
+        </tr>
+        <tr>
+            <td class='field'>created_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de creación del usuario</td>
+        </tr>
+        <tr>
+            <td class='field'>updated_at</td>
+            <td>TIMESTAMP</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td class='centered'>&nbsp;</td>
+            <td>NULL</td>
+            <td>Fecha de actualización del usuario</td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>
